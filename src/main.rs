@@ -1,5 +1,5 @@
-mod map;
 mod robot;
+mod map;
 mod station;
 
 use map::Map;
@@ -7,18 +7,29 @@ use robot::{Robot, RobotType};
 use station::Station;
 
 fn main() {
-    let mut map = Map::new(100, 100); // Crée une carte 100x100
+    // Initialisation de la seed pour la génération de la carte
+    let seed = 42; // Vous pouvez rendre cela dynamique
+    let mut map = Map::new(seed);
+
+    // Création de la station
     let mut station = Station::new();
 
-    // Ajout de robots à la station
-    station.add_robot(Robot::new(RobotType::Explorer));
-    station.add_robot(Robot::new(RobotType::Miner));
-    station.add_robot(Robot::new(RobotType::Scientist));
+    // Création des robots
+    let mut robots = vec![
+        Robot::new(RobotType::Explorer),
+        Robot::new(RobotType::Collector),
+        // Ajoutez plus de robots selon les besoins
+    ];
 
-    // Début de la simulation
+    // Simulation principale
     for _ in 0..100 {
-        station.update(&mut map);
+        for robot in &mut robots {
+            robot.act(&mut map, &mut station);
+        }
+        station.process_data();
     }
 
-    println!("Simulation terminée.");
+    // Affichage des résultats
+    map.display();
+    station.report();
 }
