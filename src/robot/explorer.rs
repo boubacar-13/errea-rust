@@ -10,11 +10,11 @@ impl Explorer {
     }
 }
 
-#[warn(unused_variables)]
 impl RobotModule for Explorer {
-    fn act(&mut self, _map: &mut Map, _station: &mut Station) {
+    fn act(&mut self, _map: &mut Map, station: &mut Station) {
         // Implémentez le comportement d'exploration ici
         println!("Exploring the map for scientific interests...");
         // Ajoutez la logique d'exploration ici
+        station.transmit_data();
     }
 }

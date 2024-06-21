@@ -3,7 +3,6 @@ pub mod generator;
 use generator::generate_map;
 
 pub struct Map {
-    // Définissez les structures de la carte ici
     data: Vec<Vec<u8>>,
 }
 

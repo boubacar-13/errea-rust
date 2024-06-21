@@ -10,11 +10,11 @@ impl Collector {
     }
 }
 
-#[warn(unused_variables)]
 impl RobotModule for Collector {
-    fn act(&mut self, _map: &mut Map, _station: &mut Station) {
+    fn act(&mut self, _map: &mut Map, station: &mut Station) {
         // Implémentez le comportement de collecte ici
         println!("Collecting resources...");
         // Ajoutez la logique de collecte ici
+        station.transmit_data();
     }
 }
