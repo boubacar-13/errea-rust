@@ -7,22 +7,22 @@ use robot::{Robot, RobotType};
 use station::Station;
 
 fn main() {
-    // Initialisation de la seed pour la génération de la carte
-    let seed = 42; // Vous pouvez rendre cela dynamique
-    let size = 100; // Taille de la carte, configurable
+    // Initialize the seed for the map generation
+    let seed = 42; // Can be dynamically generated
+    let size = 100; // Size of the map
     let mut map = Map::new(seed, size);
 
-    // Création de la station
+    // Create station
     let mut station = Station::new();
 
-    // Création des robots
+    // Create robots
     let mut robots = vec![
         Robot::new(RobotType::Explorer),
         Robot::new(RobotType::Collector),
-        // Ajoutez plus de robots selon les besoins
+        Robot::new(RobotType::ChemicalAnalyzer),
     ];
 
-    // Simulation principale
+    // Main simulation
     for _ in 0..100 {
         for robot in &mut robots {
             robot.act(&mut map, &mut station);
@@ -30,7 +30,7 @@ fn main() {
         station.process_data();
     }
 
-    // Affichage des résultats
+    // Display results
     map.display();
     station.report();
 }

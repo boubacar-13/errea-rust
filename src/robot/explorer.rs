@@ -12,9 +12,9 @@ impl Explorer {
 
 impl RobotModule for Explorer {
     fn act(&mut self, _map: &mut Map, station: &mut Station) {
-        // Implémentez le comportement d'exploration ici
+        // Implement the exploration behavior here
         println!("Exploring the map for scientific interests...");
-        // Ajoutez la logique d'exploration ici
+        // Add the exploration logic here
         station.transmit_data();
     }
 }

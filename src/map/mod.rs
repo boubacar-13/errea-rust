@@ -13,7 +13,7 @@ impl Map {
     }
 
     pub fn display(&self) {
-        // Implémentez l'affichage de la carte ici
+        // Display the map
         for row in &self.data {
             for &cell in row {
                 print!("{} ", cell);

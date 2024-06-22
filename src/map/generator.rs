@@ -16,26 +16,26 @@ pub fn generate_map(seed: u64, size: usize) -> Vec<Vec<u8>> {
     for y in 0..size {
         for x in 0..size {
             let value = noise_map.get_value(x, y);
-            map[y][x] = ((value + 1.0) * 128.0) as u8; // Normalisation des valeurs entre 0 et 255
+            map[y][x] = ((value + 1.0) * 128.0) as u8; // Normalisation of values between 0 and 255
         }
     }
 
-    // Ajouter des obstacles sur les bordures de la carte
+    // Adding obstacles on map borders
     for i in 0..size {
-        map[0][i] = 255; // Bordure supérieure
-        map[size - 1][i] = 255; // Bordure inférieure
-        map[i][0] = 255; // Bordure gauche
-        map[i][size - 1] = 255; // Bordure droite
+        map[0][i] = 255; // Upper border
+        map[size - 1][i] = 255; // Lower border
+        map[i][0] = 255; // Left border
+        map[i][size - 1] = 255; // Right border
     }
 
-    // Ajouter des ressources (1: énergie, 2: minerais, 3: lieux d'intérêt scientifique)
-    for i in 0..(size * size / 10) { // Exemples d'ajout de ressources, ajustez au besoin
+    // Adding resources (1: energy, 2: minerais, 3: scientifics places of interest)
+    for i in 0..(size * size / 10) { 
         let x = (seed as usize + i * 17) % size;
         let y = (seed as usize + i * 23) % size;
-        map[y][x] = (i % 3 + 1) as u8; // Répartir les ressources de manière simple
+        map[y][x] = (i % 3 + 1) as u8; // Spread resources on map
     }
 
-    // Enregistrement de la carte générée en tant qu'image (optionnel)
+    // Save the generated map as an image
     use std::path::Path;
     
     let path = Path::new("map.png");
