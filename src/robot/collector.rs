@@ -1,6 +1,6 @@
-use super::RobotModule;
 use crate::map::Map;
 use crate::station::Station;
+use crate::robot::{Robot, RobotModule};
 
 pub struct Collector;
 
@@ -11,10 +11,16 @@ impl Collector {
 }
 
 impl RobotModule for Collector {
-    fn act(&mut self, _map: &mut Map, station: &mut Station) {
+    fn act(&mut self, robot: &mut Robot, _map: &mut Map, station: &mut Station) {
         // Implement the collection behavior here
-        println!("Collecting resources...");
+        println!("Collecting resources from the map...");
         // Add the collection logic here
-        station.transmit_data();
+        if let Some(resource) = map.collect_resource(robot.x, robot.y) {
+            robot.has_sample = true;
+        }
+        if robot.has_sample {
+            station.receive_resource();
+            robot.has_sample = false;
+        }
     }
 }

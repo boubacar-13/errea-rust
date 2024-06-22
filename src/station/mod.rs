@@ -18,6 +18,15 @@ impl Station {
             resources: HashMap::new(),
         }
     }
+    pub fn receive_sample(&mut self) {
+        self.samples += 1;
+        println!("Sample received at the station.");
+    }
+
+    pub fn receive_resource(&mut self) {
+        self.resources += 1;
+        println!("Resource received at the station.");
+    }
 
     pub fn process_data(&mut self) {
         // Traitez les données reçues des robots
@@ -27,6 +36,16 @@ impl Station {
         for (key, value) in data {
             self.scientific_data.insert(key.clone(), value.clone());
         }
+    }
+
+     pub fn create_robot(&self) -> bool {
+          if self.resources > 10 {
+               println!("Creating a new robot.");
+               true
+          } else {
+               println!("Not enough resources to create a new robot.");
+               false
+          }
     }
 
     pub fn report(&self) {
