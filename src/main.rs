@@ -4,32 +4,20 @@ mod station;
 
 use map::Map;
 use robot::{Robot, RobotType};
+use robot::explorer::Explorer;
+use robot::collector::Collector;
+use robot::chemical_analyzer::ChemicalAnalyzer;
 use station::Station;
 
 fn main() {
-        // Initialize the seed for the map generation
-    let seed = 42; // Can be dynamically generated
-    let size = 100; // Size of the map
-    let mut map = Map::new(size, size, seed); // Exemples de dimensions et de seed
-     
-    // Create station
-     let mut station = Station::new();
+    let mut map = Map::new(100, 100, 42);
+    let mut station = Station::new();
 
-     // Create robots
-     let mut robots = vec![
-        Robot::new(RobotType::Explorer, 0, 0),
-        Robot::new(RobotType::Collector, 1, 1),
-        Robot::new(RobotType::ChemicalAnalyzer, 2, 2),
-    ];
+    let mut explorer_robot = Robot::new(RobotType::Explorer, Box::new(Explorer));
+    let mut collector_robot = Robot::new(RobotType::Collector, Box::new(Collector));
+    let mut chemical_robot = Robot::new(RobotType::ChemicalAnalyzer, Box::new(ChemicalAnalyzer));
 
-    for _ in 0..100 { // Simulation de 100 étapes
-        for robot in &mut robots {
-            robot.act(&mut map, &mut station);
-        }
-        station.process_data();
-        if station.create_robot() {
-            robots.push(Robot::new(RobotType::Explorer, 0, 0)); // Ajout d'un new robot
-        }
-        station.report();
-    }
+    explorer_robot.execute(&mut map, &mut station);
+    collector_robot.execute(&mut map, &mut station);
+    chemical_robot.execute(&mut map, &mut station);
 }
