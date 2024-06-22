@@ -9,7 +9,8 @@ use station::Station;
 fn main() {
     // Initialisation de la seed pour la génération de la carte
     let seed = 42; // Vous pouvez rendre cela dynamique
-    let mut map = Map::new(seed);
+    let size = 100; // Taille de la carte, configurable
+    let mut map = Map::new(seed, size);
 
     // Création de la station
     let mut station = Station::new();
