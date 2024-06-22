@@ -39,13 +39,16 @@ impl Station {
         self.comm.transmit_data();
     }
 
-    pub fn create_robot(&self) -> bool {
-        if self.resources > 10 {
+     pub fn resolve_conflicts(&mut self) {
+        // Implémentez la logique de résolution des conflits ici
+    }
+
+    pub fn create_robot_if_needed(&mut self) {
+        if self.resources >= 10 {
+            self.resources -= 10;
             println!("Creating a new robot.");
-            true
         } else {
             println!("Not enough resources to create a new robot.");
-            false
         }
     }
 

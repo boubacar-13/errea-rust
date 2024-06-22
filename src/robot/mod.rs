@@ -29,12 +29,27 @@ impl Robot {
     pub fn execute(&mut self, map: &mut Map, station: &mut Station) {
         let x = self.x;
         let y = self.y;
-        let kind = &self.kind;
-        let mut module = self.module.as_mut();
+        let kind = self.kind.clone(); // Cloner l'objet pour éviter l'erreur de déplacement
+        let module = self.module.as_mut();
+
+        // Exécuter l'action du module
         module.act(self, map, station);
+
+        // Restaurer les valeurs
+        self.x = x;
+        self.y = y;
+        self.kind = kind;
+    }
+
+    pub fn move_to(&mut self, x: usize, y: usize, map: &Map) {
+        if x < map.width && y < map.height && map.tiles[y][x] != Tile::Obstacle {
+            self.x = x;
+            self.y = y;
+        }
     }
 }
 
+#[derive(Clone)]
 pub enum RobotType {
     Explorer,
     Collector,

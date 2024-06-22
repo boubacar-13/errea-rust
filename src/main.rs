@@ -17,7 +17,13 @@ fn main() {
     let mut collector_robot = Robot::new(RobotType::Collector, Box::new(Collector));
     let mut chemical_robot = Robot::new(RobotType::ChemicalAnalyzer, Box::new(ChemicalAnalyzer));
 
-    explorer_robot.execute(&mut map, &mut station);
-    collector_robot.execute(&mut map, &mut station);
-    chemical_robot.execute(&mut map, &mut station);
+    for _ in 0..100 {
+        explorer_robot.execute(&mut map, &mut station);
+        collector_robot.execute(&mut map, &mut station);
+        chemical_robot.execute(&mut map, &mut station);
+        station.resolve_conflicts();
+        station.create_robot_if_needed();
+        map.display();
+    }
 }
+
