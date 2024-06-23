@@ -6,4 +6,9 @@ edition = "2021"
 [dependencies]
 rand = "0.8"
 noise = { version = "0.9.0", features = ["images"] }
+piston = "0.52.0"
+piston2d-graphics = "0.44.0"
+piston_window = "0.118.0"
+find_folder = "0.3.0"
+
 
