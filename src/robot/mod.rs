@@ -14,8 +14,7 @@ pub struct Robot {
     pub x: usize,
     pub y: usize,
     pub kind: RobotType,
-    //pub module: Box<dyn RobotModule>,
-     pub module: Option<Box<dyn RobotModule>>,
+    pub module: Option<Box<dyn RobotModule>>,
 
 }
 
@@ -34,10 +33,8 @@ impl Robot {
         let x = self.x;
         let y = self.y;
         let kind = self.kind.clone(); // Cloner l'objet pour éviter l'erreur de déplacement
-        //let module = self.module.as_mut();
+       
 
-        // Exécuter l'action du module
-        //module.act(self, map, station);
     // Temporarily take the module out of self, replacing it with None
     if let Some(mut module) = self.module.take() {
         // Exécuter l'action du module

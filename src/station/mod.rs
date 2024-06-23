@@ -40,8 +40,8 @@ impl Station {
     }
 
      pub fn resolve_conflicts(&mut self) {
-        // Implémentez la logique de résolution des conflits ici
-    }
+        println!("Resolving conflicts at the station...");
+     }
 
     pub fn create_robot_if_needed(&mut self) {
         if self.resources >= 10 {
