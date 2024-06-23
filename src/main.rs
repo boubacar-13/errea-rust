@@ -74,6 +74,26 @@ impl App {
             ).unwrap()
         );
 
+          textures.insert(
+               "robot".to_string(),
+               Texture::from_path(
+                    &mut window.create_texture_context(),
+                    assets.join("robot.png"),
+                    Flip::None,
+                    &texture_settings
+               ).unwrap()
+          );
+
+          textures.insert(
+          "station".to_string(),
+          Texture::from_path(
+               &mut window.create_texture_context(),
+               assets.join("station.png"),
+               Flip::None,
+               &texture_settings
+          ).unwrap()
+          );
+
         let map = Map::new(32, 24, 42);
 
         App {
