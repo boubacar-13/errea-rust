@@ -1,27 +1,13 @@
 pub mod generator;
 
 pub use generator::Map;
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum Tile {
-    Empty,
-    Obstacle,
-    Energy,
-    Mineral,
-    ScientificInterest,
-}
-
-impl Tile {
-    pub fn is_collectible(&self) -> bool {
-        matches!(self, Tile::Energy | Tile::Mineral | Tile::ScientificInterest)
-    }
-}
+pub use generator::Tile;
 
 impl Map {
-    pub fn collect_sample(&mut self, x: usize, y: usize) -> Option<Tile> {
+    pub fn collect_sample(&mut self, x: usize, y: usize) -> Option<generator::Tile> {
         if let Some(tile) = self.get_tile(x, y) {
             if tile.is_collectible() {
-                self.tiles[y][x] = Tile::Empty;
+                self.tiles[y][x] = generator::Tile::Empty;
                 return Some(tile);
             }
         }

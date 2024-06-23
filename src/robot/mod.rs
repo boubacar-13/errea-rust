@@ -4,6 +4,7 @@ pub mod chemical_analyzer;
 
 use crate::map::Map;
 use crate::station::Station;
+use crate::map::generator::Tile;
 
 pub trait RobotModule {
     fn act(&mut self, robot: &mut Robot, map: &mut Map, station: &mut Station);
@@ -13,7 +14,9 @@ pub struct Robot {
     pub x: usize,
     pub y: usize,
     pub kind: RobotType,
-    pub module: Box<dyn RobotModule>,
+    //pub module: Box<dyn RobotModule>,
+     pub module: Option<Box<dyn RobotModule>>,
+
 }
 
 impl Robot {
@@ -22,7 +25,8 @@ impl Robot {
             x: 0,
             y: 0,
             kind,
-            module,
+            //module,
+            module: Some(module),
         }
     }
 
@@ -30,11 +34,18 @@ impl Robot {
         let x = self.x;
         let y = self.y;
         let kind = self.kind.clone(); // Cloner l'objet pour éviter l'erreur de déplacement
-        let module = self.module.as_mut();
+        //let module = self.module.as_mut();
 
+        // Exécuter l'action du module
+        //module.act(self, map, station);
+    // Temporarily take the module out of self, replacing it with None
+    if let Some(mut module) = self.module.take() {
         // Exécuter l'action du module
         module.act(self, map, station);
 
+        // Put the module back into self
+        self.module = Some(module);
+    }
         // Restaurer les valeurs
         self.x = x;
         self.y = y;
