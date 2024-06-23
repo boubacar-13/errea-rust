@@ -7,6 +7,8 @@ pub enum Tile {
     Energy,
     Mineral,
     ScientificInterest,
+    Robot,
+     Station,
 }
 
 impl Tile {

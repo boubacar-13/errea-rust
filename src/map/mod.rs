@@ -30,7 +30,9 @@ impl Map {
                     generator::Tile::Obstacle => '#',
                     generator::Tile::Energy => 'E',
                     generator::Tile::Mineral => 'M',
-                    generator::Tile::ScientificInterest => 'S',
+                    generator::Tile::ScientificInterest => 'I',
+                    generator::Tile::Robot => 'R',
+                    generator::Tile::Station => 'S',
                 };
                 print!("{}", symbol);
             }

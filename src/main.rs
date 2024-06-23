@@ -102,29 +102,38 @@ impl App {
         }
     }
 
-    fn render(&mut self, window: &mut PistonWindow, event: &piston_window::Event) {
-        let tile_size = 32.0;
+ fn render(&mut self, window: &mut PistonWindow, event: &piston_window::Event) {
+    let tile_size = 32.0;
 
-        window.draw_2d(event, |c, g, device| {
-            clear([1.0; 4], g); // Clear the screen with white color
+    window.draw_2d(event, |c, g, device| {
+        clear([1.0; 4], g); // Clear the screen with white color
 
-            for (y, row) in self.map.tiles.iter().enumerate() {
-                for (x, &tile) in row.iter().enumerate() {
-                    let texture = match tile {
-                        map::Tile::Empty => &self.textures["empty"],
-                        map::Tile::Obstacle => &self.textures["obstacle"],
-                        map::Tile::Energy => &self.textures["energy"],
-                        map::Tile::Mineral => &self.textures["mineral"],
-                        map::Tile::ScientificInterest => &self.textures["scientific_interest"],
-                    };
-                    println!("Rendering tile at position ({}, {})", x, y);
+        for (y, row) in self.map.tiles.iter().enumerate() {
+            for (x, &tile) in row.iter().enumerate() {
+                let texture = match tile {
+                    map::Tile::Empty => &self.textures["empty"],
+                    map::Tile::Obstacle => &self.textures["obstacle"],
+                    map::Tile::Energy => &self.textures["energy"],
+                    map::Tile::Mineral => &self.textures["mineral"],
+                    map::Tile::ScientificInterest => &self.textures["scientific_interest"],
+                    map::Tile::Robot => {
+                        // Use texture for robot (assuming it's loaded)
+                        &self.textures["robot"]
+                    },
+                    map::Tile::Station => {
+                        // Use texture for station (assuming it's loaded)
+                        &self.textures["station"]
+                    },
+                };
+                println!("Rendering tile at position ({}, {})", x, y);
 
-                    let transform = c.transform.trans((x as f64) * tile_size, (y as f64) * tile_size);
-                    Image::new().draw(texture, &c.draw_state, transform, g);
-                }
+                let transform = c.transform.trans((x as f64) * tile_size, (y as f64) * tile_size);
+                Image::new().draw(texture, &c.draw_state, transform, g);
             }
-        });
-    }
+        }
+    });
+}
+
 
     fn update(&mut self) {
         println!("App state updated.");
